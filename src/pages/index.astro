@@ -1,0 +1,98 @@
+---
+import { sanityClient, urlFor } from '../lib/sanity';
+
+const query = `*[_type == "post"] | order(publishedAt desc) {
+  _id,
+  title,
+  slug,
+  publishedAt,
+  mainImage,
+  "author": author->name,
+  "categories": categories[]->title,
+  body
+}`;
+
+const posts = await sanityClient.fetch(query);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Blog Posts</title>
+	</head>
+	<body>
+		<h1>Blog Posts</h1>
+		<section>
+			{posts.length === 0 ? (
+				<p>No posts found. Create some posts in your Sanity Studio!</p>
+			) : (
+				<div class="posts">
+					{posts.map((post: any) => (
+						<article class="post">
+							<h2>{post.title}</h2>
+							{post.mainImage && (
+								<img 
+									src={urlFor(post.mainImage).width(800).url()} 
+									alt={post.title}
+									width="800"
+								/>
+							)}
+							{post.publishedAt && (
+								<time>{new Date(post.publishedAt).toLocaleDateString()}</time>
+							)}
+							{post.author && <p>By {post.author}</p>}
+							{post.categories && post.categories.length > 0 && (
+								<div class="categories">
+									{post.categories.map((cat: string) => (
+										<span class="category">{cat}</span>
+									))}
+								</div>
+							)}
+						</article>
+					))}
+				</div>
+			)}
+		</section>
+	</body>
+	<style>
+		body {
+			font-family: system-ui, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 2rem;
+		}
+		.posts {
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+		}
+		.post {
+			border: 1px solid #ddd;
+			padding: 1.5rem;
+			border-radius: 8px;
+		}
+		.post h2 {
+			margin-top: 0;
+		}
+		.post img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 4px;
+			margin: 1rem 0;
+		}
+		.categories {
+			display: flex;
+			gap: 0.5rem;
+			margin-top: 1rem;
+		}
+		.category {
+			background: #f0f0f0;
+			padding: 0.25rem 0.75rem;
+			border-radius: 4px;
+			font-size: 0.875rem;
+		}
+	</style>
+</html>
