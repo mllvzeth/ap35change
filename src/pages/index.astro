@@ -17,12 +17,12 @@ const posts = await sanityClient.fetch(query);
 ---
 
 <Layout title="Blog Posts">
-    <header class="header sticky top-0 z-100">
-        <div class="container m-auto pl-[var(">
-            <nav class="nav flex md:flex-row flex-col gap-4 md:gap-[var(--space-16)]">
-                <div class="nav__brand">
-                    <h1 class="nav__title">Learn AI, Keep Job</h1>
-                    <p class="nav__subtitle">Easy tips</p>
+    <header class="header sticky top-0 z-100 backdrop-blur-md">
+        <div class="container mx-auto px-4">
+            <nav class="nav flex md:flex-row flex-col gap-4 md:gap-4 items-center between py-4 center">
+                <div class="nav__brand flex flex-col gap-1 ">
+                    <h1 class="nav__title text-xl">Learn AI, Keep your Job</h1>
+                    <p class="nav__subtitle uppercase m-auto w-auto text-muted-foreground">Easy tips</p>
                 </div>
                 <div class="nav__menu">
                     <button class="btn btn--outline btn--sm" id="categoryFilter">All Posts</button>
@@ -35,6 +35,14 @@ const posts = await sanityClient.fetch(query);
         </div>
     </header>
     <main class="main">
+        <section class="hero px-4">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__title text-2xl font-bold mb-16 leading-tight md:text-3xl">Exploring the Intersection of AI and Photography</h1>
+                    <p class="hero__description">Discover how artificial intelligence is reshaping photography, from creative workflows to cultural impact. Join us on a journey through the evolving landscape of digital imagery.</p>
+                </div>
+            </div>
+        </section>
         <h1>Blog Posts</h1>
         <section>
             {posts.length === 0 ? (
