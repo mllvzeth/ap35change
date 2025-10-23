@@ -16,18 +16,18 @@ body
 const posts = await sanityClient.fetch(query);
 ---
 
-<Layout title="Blog Posts">
+<Layout title="Bridging the Digital Divide: A Non-Techie's Guide to Perplexity AI">
     <header class="header sticky top-0 z-100 backdrop-blur-md">
         <div class="container mx-auto px-4">
-            <nav class="nav flex md:flex-row flex-col gap-4 md:gap-4 items-center between py-4 center">
-                <div class="nav__brand flex flex-col gap-1 ">
-                    <h1 class="nav__title text-xl">Learn AI, Keep your Job</h1>
-                    <p class="nav__subtitle uppercase m-auto w-auto text-muted-foreground">Easy tips</p>
+            <nav class="nav flex flex-col gap-4 items-center justify-between py-4">
+                <div class="nav__brand flex flex-col gap-1 items-center">
+                    <h1 class="nav__title text-xl w-fit">Santa Cruz AI Labs</h1>
+                    <p class="nav__subtitle m-auto w-auto text-muted-foreground w-fit">AI literacy for the Central Coast</p>
                 </div>
-                <div class="nav__menu">
+                <div class="nav__menu gap-2 flex items-center">
                     <button class="btn btn--outline btn--sm" id="categoryFilter">All Posts</button>
                     <button class="btn btn--outline btn--sm" id="searchBtn">Search</button>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <button class="theme-toggle bg-[var(--color-secondary)] border border-(--color-border) py-[3px] px-2 rounded-(--radius-lg) cursor-pointer" id="themeToggle" aria-label="Toggle dark mode">
                         <span class="theme-toggle__icon">🌙</span>
                     </button>
                 </div>
@@ -38,8 +38,8 @@ const posts = await sanityClient.fetch(query);
         <section class="hero px-4">
             <div class="container">
                 <div class="hero__content">
-                    <h1 class="hero__title text-2xl font-bold mb-16 leading-tight md:text-3xl">Exploring the Intersection of AI and Photography</h1>
-                    <p class="hero__description">Discover how artificial intelligence is reshaping photography, from creative workflows to cultural impact. Join us on a journey through the evolving landscape of digital imagery.</p>
+                    <h1 class="hero__title text-2xl font-bold mb-4 leading-tight md:text-3xl">A Non-Techie's Guide to Perplexity AI</h1>
+                    <p class="hero__description">AI is reshaping access to information, lowering the barrier to entry. Join us thro </p>
                 </div>
             </div>
         </section>
