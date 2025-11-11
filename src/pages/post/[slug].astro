@@ -1,0 +1,49 @@
+---
+import { sanityClient, urlFor } from '../../lib/sanity';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await sanityClient.fetch(`*[_type == "post"]{ slug }`);
+
+  return posts.map((post) => ({
+    params: { slug: post.slug.current }
+  }));
+}
+
+const { slug } = Astro.params;
+
+const post = await sanityClient.fetch(`
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    publishedAt,
+    mainImage,
+    "author": author->name,
+    "categories": categories[]->title,
+    body
+  }
+`, { slug });
+
+if (!post) return Astro.redirect('/404');
+---
+
+<Layout title={post.title}>
+  <article>
+    <h1>{post.title}</h1>
+    {post.mainImage && (
+      <img src={urlFor(post.mainImage).width(1200).url()} alt={post.title} />
+    )}
+    {post.publishedAt && (
+      <time>{new Date(post.publishedAt).toLocaleDateString()}</time>
+    )}
+    {post.author && <p>By {post.author}</p>}
+    {post.categories && (
+      <div>
+        {post.categories.map((cat: string) => <span>{cat}</span>)}
+      </div>
+    )}
+    {/* Add PortableText component here for body content */}
+  </article>
+</Layout>
+

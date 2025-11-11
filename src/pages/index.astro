@@ -50,7 +50,7 @@ const posts = await sanityClient.fetch(query);
             ) : (
             <div class="posts">
                 {posts.map((post: any) => (
-                <article class="post">
+                <a href={`/post/${post.slug.current}`}><article class="post">
                     <h2>{post.title}</h2>
                     {post.mainImage && (
                     <img
@@ -71,6 +71,7 @@ const posts = await sanityClient.fetch(query);
                     </div>
                     )}
                 </article>
+                </a>
                 ))}
             </div>
             )}
